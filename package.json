@@ -1,0 +1,27 @@
+{
+  "name": "api_monitoreo_ciudadano",
+  "version": "1.0.0",
+  "description": "API para la app de monitoreo ciudadano",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel server --out-dir dist",
+    "dev": "nodemon server --exec babel-node",
+    "start": "node dist/index.js"
+  },
+  "author": "Cayun Garcia Diego Saul",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.10.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "nodemon": "^2.0.4",
+    "sequelize": "^5.21.11"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.1",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.1"
+  }
+}
