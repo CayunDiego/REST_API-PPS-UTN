@@ -4,6 +4,8 @@ import morgan from 'morgan';
 //importing routes
 import typeworkRoutes from './routes/typeworksRoutes';
 import complaintRoutes from './routes/complaintsRoutes';
+import userRouters from './routes/usersRouters';
+import commentRouters from './routes/commentsRouters'
 
 
 //initialization
@@ -18,6 +20,10 @@ app.use(json());
 app.use('/api/v1/typework',typeworkRoutes);
 //complaint route
 app.use('/api/v1/complaint',complaintRoutes);
+//user route
+app.use('/api/v1/user',userRouters);
+//comment route
+app.use('/api/v1/comment',commentRouters);
 
 
 export default app; 

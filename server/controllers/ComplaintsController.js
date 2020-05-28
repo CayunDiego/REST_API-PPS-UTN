@@ -1,15 +1,20 @@
 import Complaints from '../models/Complaints.model';
 //Model del FOREIGN KEY
-import TypeWork from '../models/TypeWork.model'
+import TypeWork from '../models/TypeWork.model';
+import Users from '../models/Users.model';
 
 //GET
 export const getComplaints = async (req, res) => {
     try {
         const complaints = await Complaints.findAll({
-            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE'],
+            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
             include: [
                 {
                   model: TypeWork
+                  
+                },
+                {
+                  model: Users
                 }
               ],
             order: [
@@ -32,11 +37,16 @@ export const getOneComplaint = async (req, res) => {
     try {
         const { id } = req.params;
         const complaint = await Complaints.findOne({
+            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
             include: [
                 {
-                model: TypeWork
+                  model: TypeWork
+                  
+                },
+                {
+                  model: Users
                 }
-            ],
+              ],
             where: {
                 ID: id
             }
@@ -55,7 +65,7 @@ export const getOneComplaint = async (req, res) => {
 //POST
 export const createComplaint = async (req, res) => {
     try {
-        const { createAt, description, address, lat, lng, photoURL, idType, vote } = req.body;
+        const { createAt, description, address, lat, lng, photoURL, idType, vote, idUser } = req.body;
         let newComplaint = await Complaints.create({
             CREATE_AT: createAt,
             DESCRIPTION: description,
@@ -65,8 +75,9 @@ export const createComplaint = async (req, res) => {
             PHOTO_URL: photoURL,
             ID_TYPE: idType,
             VOTE: vote,
+            ID_U: idUser
         },{
-            fields: ['CREATE_AT','DESCRIPTION','ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE']
+            fields: ['CREATE_AT','DESCRIPTION','ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE', 'ID_U']
         });
         if(newComplaint){
             return res.status(200).json({
@@ -108,9 +119,9 @@ export const deleteComplaint = async (req, res) => {
 export const updateComplaint = async (req, res) => {
     try {
         const { id } = req.params;
-        const { createAt, description, address, lat, lng, photoURL, idType, vote } = req.body;
+        const { createAt, description, address, lat, lng, photoURL, idType, vote, idUser } = req.body;
         const complaint = await Complaints.findOne({
-            attributes: ['CREATE_AT','DESCRIPTION','ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE'],
+            attributes: ['CREATE_AT','DESCRIPTION','ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE', 'ID_U'],
             where: {
                 ID: id
             }
@@ -124,6 +135,7 @@ export const updateComplaint = async (req, res) => {
             PHOTO_URL: photoURL,
             ID_TYPE: idType,
             VOTE: vote,
+            ID_U: idUser
         }, {
             where: {
                 ID: id
@@ -149,12 +161,16 @@ export async function getComplaintByTypeWork(req, res){
     try {
         const { id } = req.params;
         const complaints = await Complaints.findAll({
-            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE'],
+            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
             include: [
                 {
-                model: TypeWork
+                  model: TypeWork
+                  
+                },
+                {
+                  model: Users
                 }
-            ],
+              ],
             where: {
                 ID_TYPE: id
             }

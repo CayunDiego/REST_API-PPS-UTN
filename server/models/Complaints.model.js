@@ -1,9 +1,11 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../config/database';
 
+//TABLE CON EL FOREIGN KEY
+import Comments from './Comments.model';
 
 //COMPLAINTS MODEL
-const Complaints = sequelize.define('complaints', {
+const Complaints = sequelize.define('COMPLAINTS', {
     ID: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -32,8 +34,14 @@ const Complaints = sequelize.define('complaints', {
     VOTE: {
         type: Sequelize.INTEGER
     },
+    ID_U: {
+        type: Sequelize.STRING
+    },
 })
 
+//VER SI ESTAN BIEN LAS ID
+Complaints.hasMany(Comments, { foreignKey: 'ID_COMPLAINT', sourceKey: 'ID'});
+Comments.belongsTo(Complaints, { foreignKey: 'ID_COMPLAINT', sourceKey: 'ID' });
 
 
 export default Complaints;
