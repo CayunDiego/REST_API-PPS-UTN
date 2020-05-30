@@ -107,23 +107,22 @@ export const updateComment = async (req, res) => {
     try {
         const { id } = req.params;
         const { vote } = req.body;
-        const comment = await Comments.findOne({
-            attributes: ['COMMENT', 'CREATE_AT', 'VOTE', 'ID_COMPLAINT', 'ID_U'],
+        const comments = await Comments.findAll({
+            attributes: ['ID_C', 'COMMENT', 'CREATE_AT', 'VOTE', 'ID_COMPLAINT', 'ID_U'],
             where: {
                 ID_C: id
             }
         });
-        const updateComments = await Comments.update({
-            VOTE: vote,
-        }, {
-            where: {
-                ID_C: id
-            }
-        })
-
+        if(comments.length > 0){
+            comments.forEach( async comment => {
+                await comment.update({
+                    VOTE: comment.VOTE + 1
+                })
+            })
+        }
         return res.status(200).json({
             message: 'Comments Updated Successfully',
-            data: updateComments
+            data: comments
         });
     } catch (error) {
         console.log(error);
