@@ -5,9 +5,6 @@ import Users from '../models/Users.model';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 
-import moment from 'moment';
-moment.locale('es');
-
 //GET
 export const getComplaints = async (req, res) => {
     try {
@@ -37,7 +34,7 @@ export const getComplaints = async (req, res) => {
    }
 }
 
-//GET -> ID    //le agregué lo de moment provisoriamente, eso va en el front
+//GET -> ID
 export const getOneComplaint = async (req, res) => {
     try {
         const { id } = req.params;
@@ -56,8 +53,6 @@ export const getOneComplaint = async (req, res) => {
                 ID: id
             }
         });
-        //para ver hace cuanto se publicó
-        console.log( moment(complaint.CREATE_AT).fromNow());
         res.status(200).json({
             data: complaint
         });

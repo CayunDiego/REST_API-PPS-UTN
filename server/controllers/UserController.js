@@ -90,7 +90,7 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { displayName, firstName, lastName, document, photoURL } = req.body;
+        const { displayName, photoURL } = req.body;
         const users = await Users.findAll({
             attributes: ["ID_U","DISPLAY_NAME","FIRST_NAME", "LAST_NAME","DOCUMENT","PHOTO_URL"],
             where: {
@@ -101,9 +101,6 @@ export const updateUser = async (req, res) => {
             users.forEach( async user => {
                 await user.update({
                     DISPLAY_NAME: displayName,
-                    FIRST_NAME: firstName,
-                    LAST_NAME: lastName,
-                    DOCUMENT: document,
                     PHOTO_URL: photoURL
                 })
             })
