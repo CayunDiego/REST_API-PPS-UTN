@@ -73,7 +73,6 @@ export const getOneComplaint = async (req, res) => {
 export const createComplaint = async (req, res) => {
     try {
         const { description, address, lat, lng, photoURL, idType, idUser } = req.body;
-        console.log(req.body);
         let newComplaint = await Complaints.create({
             CREATE_AT: new Date(),
             DESCRIPTION: description,
