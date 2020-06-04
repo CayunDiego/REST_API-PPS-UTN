@@ -29,7 +29,7 @@ export const getComments = async (req, res) => {
 export const getOneComment = async (req, res) => {
     try {
         const { id } = req.params;
-        const comment = await Comments.findOne({
+        const comment = await Comments.findAll({
             attributes: ['ID_C',  'COMMENT', 'CREATE_AT', 'VOTE', 'ID_COMPLAINT'],
             include: [
                 {
@@ -37,8 +37,11 @@ export const getOneComment = async (req, res) => {
                 }
               ],
             where: {
-                ID_C: id
-            }
+                ID_COMPLAINT: id
+            },
+            order: [
+                ['ID_C', 'DESC']
+            ]
         });
         res.status(200).json({
             data: comment
@@ -55,11 +58,11 @@ export const getOneComment = async (req, res) => {
 //POST
 export const createComment = async (req, res) => {
     try {
-        const { comment, createAt, vote, idComplaint, idUser } = req.body;
+        const { comment, idComplaint, idUser } = req.body;
         let newComment = await Comments.create({
             COMMENT: comment,
-            CREATE_AT: createAt,
-            VOTE: vote,
+            CREATE_AT: new Date(),
+            VOTE: 0,
             ID_COMPLAINT: idComplaint,
             ID_U: idUser
         },{
