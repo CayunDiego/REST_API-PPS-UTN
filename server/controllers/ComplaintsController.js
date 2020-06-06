@@ -9,7 +9,7 @@ const Op = Sequelize.Op;
 export const getComplaints = async (req, res) => {
     try {
         const complaints = await Complaints.findAll({
-            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
             include: [
                 {
                   model: TypeWork
@@ -39,7 +39,7 @@ export const getOneComplaint = async (req, res) => {
     try {
         const { id } = req.params;
         const complaint = await Complaints.findOne({
-            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+            attributes: ['ID',  'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
             include: [
                 {
                   model: TypeWork
@@ -123,7 +123,7 @@ export const updateComplaint = async (req, res) => {
         const { id } = req.params;
         const { vote } = req.body;
         const complaints = await Complaints.findAll({
-            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE', 'ID_U'],
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE', 'ID_U','STATE'],
             where: {
                 ID: id
             }
@@ -131,7 +131,7 @@ export const updateComplaint = async (req, res) => {
         if(complaints.length > 0){
             complaints.forEach( async complaint => {
                 await complaint.update({
-                    VOTE: complaint.VOTE + 1
+                    VOTE: complaint.VOTE + 1,
                 })
             })
         }
@@ -184,7 +184,7 @@ export async function getComplaintByTypeWork(req, res){
 export async function getComplaintByOneUser(req, res){
     const { id } = req.params;
     const complaints = await Complaints.findAll({
-        attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+        attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
         include: [{
                 model: TypeWork
                 },
@@ -205,7 +205,7 @@ export const getComplaintsByUserUnregistered = async (req, res) => {
     try {
         console.log('hola')
         const complaints = await Complaints.findAll({
-            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
             include: [{
                         model: TypeWork
                     },
@@ -234,7 +234,7 @@ export const getComplaintsByUserRegistered = async (req, res) => {
     try {
         console.log('hola')
         const complaints = await Complaints.findAll({
-            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
             include: [{
                         model: TypeWork
                     },
@@ -263,7 +263,7 @@ export const getComplaintsByUserRegistered = async (req, res) => {
 export const getComplaintsByVote = async (req, res) => {
     try {
         const complaints = await Complaints.findAll({
-            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
             include: [
                 {
                   model: TypeWork
@@ -300,7 +300,7 @@ export const getComplaintsByLocation = async (req, res) => {
     }
     try {
         const complaints = await Complaints.findAll({
-            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE'],
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'VOTE', 'STATE'],
             include: [
                 {
                   model: TypeWork

@@ -37,6 +37,9 @@ const Complaints = sequelize.define('COMPLAINTS', {
     ID_U: {
         type: Sequelize.STRING
     },
+    STATE: {
+        type: Sequelize.STRING
+    },
 })
 
 //VER SI ESTAN BIEN LAS ID
