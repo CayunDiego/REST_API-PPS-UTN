@@ -4,8 +4,8 @@ import TypeWork from '../models/TypeWork.model';
 export const getTypeWorks = async (req, res) => {
    try {
         const typeworks = await TypeWork.findAll();
-        res.status(200).json({
-            data: typeworks
+        return res.status(200).json({
+            data: typeworks || []
         });
    } catch (error) {
         console.log(error);
@@ -24,8 +24,8 @@ export const getOneTypeWork = async (req, res) => {
                 ID_TYPE: id
             }
         });
-        res.status(200).json({
-            data: typework
+        return res.status(200).json({
+            data: typework || {}
         });
     } catch (error) {
         console.log(error);
@@ -47,7 +47,7 @@ export const createTypeWork = async (req, res ) => {
             fields: ['ID_TYPE','TYPE','COLOR']  //le digo los datos que voy a llenar (es como el values)
         });
         if(newTypeWork){
-            return res.status(200).json({
+            return res.status(201).json({
                 message: 'Type work created successfully',
                 data: newTypeWork
             });

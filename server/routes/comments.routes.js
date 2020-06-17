@@ -5,16 +5,14 @@ import {createComment,
         getComments,
         getOneComment,
         deleteComment,
-        updateComment
-        } from '../controllers/CommentsController';
+        upVoteComment
+        } from '../controllers/Comments.controller';
 
 //  /api/v1/comment
 router.post('/', createComment);
 router.get('/', getComments);
-//  /api/v1/comment/:id
 router.get('/:id', getOneComment);
 router.delete('/:id', deleteComment);
-router.put('/:id', updateComment);
-
+router.put('/:id/upvote', upVoteComment);
 
 export default router;

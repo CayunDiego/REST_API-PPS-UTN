@@ -15,7 +15,7 @@ export const getComments = async (req, res) => {
               ]
         });
         res.status(200).json({
-            data: comments
+            data: comments || []
         });
    } catch (error) {
         console.log(error);
@@ -44,7 +44,7 @@ export const getOneComment = async (req, res) => {
             ]
         });
         res.status(200).json({
-            data: comment
+            data: comment || {}
         });
     } catch (error) {
         console.log(error);
@@ -68,7 +68,7 @@ export const createComment = async (req, res) => {
             fields: ['COMMENT', 'CREATE_AT', 'VOTE', 'ID_COMPLAINT', 'ID_U']
         });
         if(newComment){
-            return res.status(200).json({
+            return res.status(201).json({
                 message: 'Comments created successfully',
                 data: newComment
             });
@@ -103,11 +103,10 @@ export const deleteComment = async (req, res) => {
     }
 }
 
-//PUT
-export const updateComment = async (req, res) => {
+//UPVOTECOMMENT
+export const upVoteComment = async (req, res) => {
     try {
         const { id } = req.params;
-        const { vote } = req.body;
         const comments = await Comments.findAll({
             attributes: ['ID_C', 'COMMENT', 'CREATE_AT', 'VOTE', 'ID_COMPLAINT', 'ID_U'],
             where: {

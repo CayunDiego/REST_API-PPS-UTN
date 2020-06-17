@@ -6,15 +6,13 @@ import {createUser,
         getOneUser,
         deleteUser,
         updateUser
-        } from '../controllers/UserController';
+        } from '../controllers/User.controller';
 
 //  /api/v1/user
 router.post('/', createUser);
 router.get('/', getUsers);
-//  /api/v1/user/:id
 router.get('/:id', getOneUser);
 router.delete('/:id', deleteUser);
 router.put('/:id', updateUser);
-
 
 export default router;

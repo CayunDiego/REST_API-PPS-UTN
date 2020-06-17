@@ -5,7 +5,7 @@ export const getUsers = async (req, res) => {
    try {
         const users = await Users.findAll();
         res.status(200).json({
-            data: users
+            data: users || []
         });
    } catch (error) {
         console.log(error);
@@ -25,7 +25,7 @@ export const getOneUser = async (req, res) => {
             }
         });
         res.status(200).json({
-            data: user
+            data: user || {}
         });
     } catch (error) {
         console.log(error);
@@ -50,7 +50,7 @@ export const createUser = async (req, res ) => {
             fields: ["ID_U","DISPLAY_NAME","FIRST_NAME", "LAST_NAME","DOCUMENT","PHOTO_URL"]
         });
         if(newUser){
-            return res.status(200).json({
+            return res.status(201).json({
                 message: 'User created successfully',
                 data: newUser
             });
@@ -63,7 +63,6 @@ export const createUser = async (req, res ) => {
         });
     }
 }
-
 
 //DELETE
 export const deleteUser = async (req, res) => {

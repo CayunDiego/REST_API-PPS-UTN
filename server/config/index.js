@@ -10,5 +10,6 @@ module.exports = {
     PASS: process.env.BD_PASS,
     HOST: process.env.BD_HOST,
     BD_PORT: process.env.BD_PORT,
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+    JWT_SECRET: process.env.JWT_SECRET
 };

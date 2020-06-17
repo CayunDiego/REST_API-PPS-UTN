@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
-import { NotFoundMiddleware, ErrorMiddleware } from './middlewares';
+import { NotFoundMiddleware } from './middlewares';
 
 //importing routes
 import typeworkRoutes from './routes/typeworks.routes';
@@ -47,7 +47,6 @@ const app = () => {
 
     router.use('/api/v1', apiRoutes);
     router.use(NotFoundMiddleware);
-    router.use(ErrorMiddleware);
 
     return router;
 }
