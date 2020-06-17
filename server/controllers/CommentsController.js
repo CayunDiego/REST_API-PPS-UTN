@@ -54,7 +54,6 @@ export const getOneComment = async (req, res) => {
     }
 }
 
-
 //POST
 export const createComment = async (req, res) => {
     try {
@@ -103,7 +102,6 @@ export const deleteComment = async (req, res) => {
         });
     }
 }
-
 
 //PUT
 export const updateComment = async (req, res) => {

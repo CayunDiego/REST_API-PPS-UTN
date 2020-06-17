@@ -1,19 +1,17 @@
 import express, { json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import helmet from 'helmet';
+import { NotFoundMiddleware, ErrorMiddleware } from './middlewares';
 
 //importing routes
-import typeworkRoutes from './routes/typeworksRoutes';
-import complaintRoutes from './routes/complaintsRoutes';
-import userRouters from './routes/usersRouters';
-import commentRouters from './routes/commentsRouters'
+import typeworkRoutes from './routes/typeworks.routes';
+import complaintRoutes from './routes/complaints.routes';
+import userRoutes from './routes/users.routes';
+import commentRoutes from './routes/comments.routes'
 
-
-//initialization
-const app = express();
 
 //Habilitamos CORS
-app.use(cors());
 //Vamos a crear un lista blanca, para que solo la url que le digamos, tenga acceso a la API
 // const whiteList = ['http://localhost:3000', 'http://192.168.0.101:3000/'];
 // const corsOptions = {
@@ -29,19 +27,29 @@ app.use(cors());
 
 // app.use(cors(corsOptions));
 
-//middlewares
-app.use(morgan('dev'));
-app.use(json());
 
-//ROUTES
-//Type work route
-app.use('/api/v1/typework',typeworkRoutes);
-//complaint route
-app.use('/api/v1/complaint',complaintRoutes);
-//user route
-app.use('/api/v1/user',userRouters);
-//comment route
-app.use('/api/v1/comment',commentRouters);
+const app = () => {
+    const router = express();
+    const apiRoutes = express();
 
+    //middlewares por default
+    apiRoutes
+        .use(json())
+        .use(morgan('dev'))
+        .use(cors())
+        .use(helmet());
 
-export default app; 
+    //ROUTES
+    apiRoutes.use('/typework',typeworkRoutes);
+    apiRoutes.use('/complaint',complaintRoutes);
+    apiRoutes.use('/user',userRoutes);
+    apiRoutes.use('/comment',commentRoutes);
+
+    router.use('/api/v1', apiRoutes);
+    router.use(NotFoundMiddleware);
+    router.use(ErrorMiddleware);
+
+    return router;
+}
+
+export default app;

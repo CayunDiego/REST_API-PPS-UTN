@@ -1,8 +1,9 @@
 import Sequelize from 'sequelize';
+import {NOMBRE, USER, PASS, HOST, BD_PORT} from './';
 
-export const sequelize = new Sequelize('db_monitoreo_ciudadano', 'root', 'root', {
-    host: '127.0.0.1',
-    port: '3306',
+export const sequelize = new Sequelize(NOMBRE, USER, PASS, {
+    host: HOST,
+    port: BD_PORT,
     dialect: 'mysql',
     define: {
         timestamps: false,
