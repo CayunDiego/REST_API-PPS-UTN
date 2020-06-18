@@ -9,7 +9,8 @@ import typeworkRoutes from './routes/typeworks.routes';
 import complaintRoutes from './routes/complaints.routes';
 import userRoutes from './routes/users.routes';
 import commentRoutes from './routes/comments.routes';
-import votesComplaintRoutes from './routes/votesComplaint.routes'
+import votesComplaintRoutes from './routes/votesComplaint.routes';
+import votesCommmetRoutes from './routes/votesCommmet.routes';
 
 
 //Habilitamos CORS
@@ -46,7 +47,8 @@ const app = () => {
     apiRoutes.use('/user',userRoutes);
     apiRoutes.use('/comment',commentRoutes);
     apiRoutes.use('/votescomplaint', votesComplaintRoutes);
-
+    apiRoutes.use('/votescomment', votesCommmetRoutes);
+    
     router.use('/api/v1', apiRoutes);
     router.use(NotFoundMiddleware);
 
