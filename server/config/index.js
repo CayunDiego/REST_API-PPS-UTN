@@ -11,5 +11,6 @@ module.exports = {
     HOST: process.env.BD_HOST,
     BD_PORT: process.env.BD_PORT,
     PORT: process.env.PORT,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
+    SWAGGER_PATH: `./config/swagger/${process.env.SWAGGER_DOC}`
 };

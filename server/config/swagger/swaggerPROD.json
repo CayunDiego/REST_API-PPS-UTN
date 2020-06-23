@@ -1,0 +1,430 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Backend ::MONITOREO CIUDADANO:: API",
+    "version" : "1.0.0",
+    "title" : "Monitoreo Ciudadano REST API",
+    "contact" : {
+      "name" : "Diego Cayun",
+      "url" : "https://www.linkedin.com/in/diego-saul-cayun-garcia",
+      "email" : "cayun.diego.09@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "localhost:4000",
+  "basePath" : "/api/v1",
+  "tags" : [ {
+    "name" : "Authentication",
+    "description" : "Authentication endpoints"
+  }, {
+    "name" : "Complaints",
+    "description" : "Complaints endpoints"
+  }, {
+    "name" : "Typework",
+    "description" : "Typework endpoints"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/auth/signup" : {
+      "post" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Creates a new userAdmin",
+        "description" : "",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Descripcion algo",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/auth/signin" : {
+      "post" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Login with an exixting user account, returns token",
+        "description" : "",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Descripcion algo",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UserSignin"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200"
+            }
+          },
+          "404" : {
+            "description" : "Resource not found"
+          }
+        }
+      }
+    },
+    "/typework" : {
+      "get" : {
+        "tags" : [ "Typework" ],
+        "summary" : "Finds All the typework",
+        "description" : "poner descripcion",
+        "operationId" : "getTypeWorks",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/typework"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid status value"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Typework" ],
+        "summary" : "Add a new Typework to the store",
+        "description" : "",
+        "operationId" : "addTypework",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "x-access-token",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Typework object that needs to be added to the store",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/typeworkPOST"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          }
+        }
+      }
+    },
+    "/typework/{id}" : {
+      "get" : {
+        "tags" : [ "Typework" ],
+        "summary" : "Completar con algo!!",
+        "description" : "Permite obtener un Tipo de Obra por ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of typework to return",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/typework"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid status value"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Typework" ],
+        "summary" : "Update an existing typework",
+        "description" : "Permite editar un Tipo de Obra por ID",
+        "operationId" : "updateTypeWork",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "x-access-token",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of typework to return",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Updated Typework object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/typeworkPUT"
+          }
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid user supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Typework" ],
+        "summary" : "Deletes a Typework",
+        "description" : "",
+        "operationId" : "deleteTypework",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "x-access-token",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Typework id to delete",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid ID supplied"
+          },
+          "404" : {
+            "description" : "Pet not found"
+          }
+        }
+      }
+    },
+    "/complaint" : {
+      "get" : {
+        "tags" : [ "Complaints" ],
+        "summary" : "Finds All the Complaints",
+        "description" : "poner descripcion",
+        "operationId" : "getComplaints",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid status value"
+          }
+        }
+      }
+    },
+    "/complaint/" : {
+      "get" : {
+        "tags" : [ "Complaints" ],
+        "summary" : "Finds All the Complaints by filter",
+        "description" : "poner descripcion",
+        "operationId" : "getComplaintsBy",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "lat",
+          "in" : "query",
+          "description" : "Latitud, tambien debe poner la longitud en su campo",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "lng",
+          "in" : "query",
+          "description" : "Longitud, tambien debe poner la latitud en su campo",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "typework",
+          "in" : "query",
+          "description" : "Id del tipo de obra",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid status value"
+          }
+        }
+      }
+    },
+    "/complaint/{id}" : {
+      "get" : {
+        "tags" : [ "Complaints" ],
+        "summary" : "Completar con algo!!",
+        "description" : "Permite obtener una denuncia por ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of Complaints to return",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid status value"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Complaints" ],
+        "summary" : "Update an existing Complaint",
+        "description" : "Permite editar el estado de una denuncia.",
+        "operationId" : "updateState",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "x-access-token",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of Complaint",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "state",
+          "in" : "query",
+          "description" : "poner una descripcion",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "number",
+            "enum" : [1,2,3,4],
+            "default" : 1
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid user supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "userName" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "UserSignin" : {
+      "type" : "object",
+      "properties" : {
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "typework" : {
+      "type" : "object",
+      "properties" : {
+        "ID_TYPE" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "TYPE" : {
+          "type" : "string"
+        },
+        "COLOR" : {
+          "type" : "string"
+        }
+      }
+    },
+    "typeworkPOST" : {
+      "type" : "object",
+      "properties" : {
+        "idType" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "color" : {
+          "type" : "string"
+        }
+      }
+    },
+    "typeworkPUT" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "color" : {
+          "type" : "string"
+        }
+      }
+    },
+    "inline_response_200" : {
+      "type" : "object",
+      "properties" : {
+        "auth" : {
+          "type" : "boolean",
+          "default" : false
+        },
+        "token" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
+import swaggerUI from 'swagger-ui-express';
 import { NotFoundMiddleware } from './middlewares';
 
 //importing routes
@@ -12,6 +13,8 @@ import commentRoutes from './routes/comments.routes';
 import votesComplaintRoutes from './routes/votesComplaint.routes';
 import votesCommmetRoutes from './routes/votesCommmet.routes';
 import authRoutes from './routes/auth.routes';
+import {SWAGGER_PATH}  from './config';
+const swaggerDocument = require(SWAGGER_PATH);
 
 
 //Habilitamos CORS
@@ -52,8 +55,8 @@ const app = () => {
     apiRoutes.use('/auth', authRoutes);
     
     router.use('/api/v1', apiRoutes);
+    router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
     router.use(NotFoundMiddleware);
-
     return router;
 }
 
