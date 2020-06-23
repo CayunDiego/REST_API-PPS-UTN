@@ -11,6 +11,7 @@ import userRoutes from './routes/users.routes';
 import commentRoutes from './routes/comments.routes';
 import votesComplaintRoutes from './routes/votesComplaint.routes';
 import votesCommmetRoutes from './routes/votesCommmet.routes';
+import authRoutes from './routes/auth.routes';
 
 
 //Habilitamos CORS
@@ -48,6 +49,7 @@ const app = () => {
     apiRoutes.use('/comment',commentRoutes);
     apiRoutes.use('/votescomplaint', votesComplaintRoutes);
     apiRoutes.use('/votescomment', votesCommmetRoutes);
+    apiRoutes.use('/auth', authRoutes);
     
     router.use('/api/v1', apiRoutes);
     router.use(NotFoundMiddleware);

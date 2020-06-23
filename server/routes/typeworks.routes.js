@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
+import { verifyTokenMiddleware } from '../middlewares'
 import {createTypeWork, 
         getTypeWorks, 
         getOneTypeWork, 
@@ -9,10 +10,10 @@ import {createTypeWork,
         } from '../controllers/TypeWork.controller';
 
 //  /api/v1/typework
-router.post('/', createTypeWork);
+router.post('/',verifyTokenMiddleware, createTypeWork);
 router.get('/', getTypeWorks);
 router.get('/:id', getOneTypeWork);
-router.delete('/:id', deleteTypeWork);
-router.put('/:id', updateTypeWork);
+router.delete('/:id',verifyTokenMiddleware, deleteTypeWork);
+router.put('/:id',verifyTokenMiddleware, updateTypeWork);
 
 export default router;

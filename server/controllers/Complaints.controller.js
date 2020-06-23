@@ -164,7 +164,6 @@ export const deleteComplaint = async (req, res) => {
 export const upVoteComplaint = async (req, res) => {
     try {
         const { id } = req.params;
-        const { vote } = req.body;
         const complaints = await Complaints.findAll({
             attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE', 'ID_U','STATE'],
             where: {
@@ -190,6 +189,56 @@ export const upVoteComplaint = async (req, res) => {
     }
 }
 
+//UpdateState
+export const UpdateState = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { state } = req.query;
+        console.log(state)
+        let stateValue = null;
+        switch (state) {
+            case "1":
+                stateValue = 'Publicada';
+              break;
+            case "2":
+                stateValue = 'Rechazada';
+              break;
+            case "3":
+                stateValue = 'Ejecucion';
+              break;
+            case "4":
+                stateValue = 'Finalizada';
+                break;
+            default:
+              res.status(400).json({
+                message: 'unrecognized parameter'
+              });
+          }
+
+        const complaints = await Complaints.findAll({
+            attributes: ['ID', 'CREATE_AT', 'DESCRIPTION', 'ADDRESS', 'LAT', 'LNG', 'PHOTO_URL', 'ID_TYPE', 'VOTE', 'ID_U','STATE'],
+            where: {
+                ID: id
+            }
+        });
+        if(complaints.length > 0 && stateValue!== null){
+            complaints.forEach( async complaint => {
+                await complaint.update({
+                    STATE: stateValue,
+                })
+            })
+        }
+        return res.status(200).json({
+            message: 'Complaints Updated Successfully',
+            data: complaints
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'The request failed.'
+        });
+    }
+}
 //functions for GET complaints by filter
 const searchComplaints = () => {
     return Complaints.findAll({
