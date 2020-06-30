@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel server --out-dir dist",
     "dev": "nodemon server --exec babel-node",
-    "start": "node server"
+    "start": "node /dist/index.js"
   },
   "author": "Cayun Garcia Diego Saul",
   "license": "ISC",
