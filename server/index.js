@@ -1,9 +1,9 @@
 import app from './app';
-import {PORT} from '../server/config'
+import {PORT, HOST} from '../server/config';
 
 async function main(){
-    await app().listen(PORT);
-    console.log('Server on port ' + PORT);
+    console.log(PORT)
+    app().listen(PORT, HOST, () => console.log('Server on port ' + PORT ) );
 }
 
 main();
