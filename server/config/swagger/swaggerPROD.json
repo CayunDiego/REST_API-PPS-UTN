@@ -326,7 +326,7 @@
         }, {
           "name" : "state",
           "in" : "query",
-          "description" : "poner una descripcion",
+          "description" : "1- Publicada. 2- Rechazada. 3- Ejecucion. 4- Finalizada",
           "required" : true,
           "type" : "array",
           "items" : {
